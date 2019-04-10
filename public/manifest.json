@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Jotto",
+  "name": "Jotto - guess a secret word",
   "icons": [
     {
       "src": "favicon.ico",
