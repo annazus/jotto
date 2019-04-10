@@ -1,5 +1,8 @@
 import Enzyme from "enzyme";
 import checkPropType from "check-prop-types";
+import rootReducer from "../reducers";
+import { createStore } from "redux";
+
 export const findByTestAttr = (wrapper, val) =>
   wrapper.find(`[data-test="${val}"]`);
 
@@ -17,4 +20,8 @@ export const checkProps = (component, conformingProps) => {
     component.name
   );
   expect(propError).toBeUndefined();
+};
+
+export const storeFactory = initialState => {
+  return createStore(rootReducer, initialState);
 };
