@@ -11,15 +11,29 @@ const setup = (initialState = {}) => {
   const wrapper = shallow(<Input store={store} />)
     .dive()
     .dive();
-  console.log(wrapper.debug());
+  return wrapper;
 };
 
 setup();
 describe("render", () => {
   describe("word has not been guessed", () => {
-    test("renders component without error", () => {});
-    test("renders input box without error", () => {});
-    test("renders submit button", () => {});
+    let wrapper;
+    beforeEach(() => {
+      let initalState = { success: false };
+      wrapper = setup();
+    });
+    test("renders component without error", () => {
+      const component = findByTestAttr(wrapper, "component-input");
+      expect(component.length).toBe(1);
+    });
+    test("renders input box without error", () => {
+      const inputBox = findByTestAttr(wrapper, "input-box");
+      expect(inputBox.length).toBe(1);
+    });
+    test("renders submit button", () => {
+      const inputBox = findByTestAttr(wrapper, "input-box");
+      expect(inputBox.length).toBe(1);
+    });
   });
   describe("word has  been guessed", () => {
     test("renders component without error", () => {});
