@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-class Input extends Component {
+export class UnConnectedInput extends Component {
   render() {
-    const contents = this.props.success ? null : (
+    const contents = this.props.success ? (
+      { undefined }
+    ) : (
       <form className="form-inline">
         <input
           type="text"
@@ -30,4 +32,4 @@ const mapStateToProps = ({ success }) => {
   return { success };
 };
 
-export default connect(mapStateToProps)(Input);
+export default connect(mapStateToProps)(UnConnectedInput);

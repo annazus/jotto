@@ -1,8 +1,8 @@
 import Enzyme from "enzyme";
 import checkPropType from "check-prop-types";
 import rootReducer from "../reducers";
-import { createStore } from "redux";
-
+import { createStore, applyMiddleware } from "redux";
+import { middleWares } from "../configureStore";
 export const findByTestAttr = (wrapper, val) =>
   wrapper.find(`[data-test="${val}"]`);
 
@@ -23,5 +23,9 @@ export const checkProps = (component, conformingProps) => {
 };
 
 export const storeFactory = initialState => {
-  return createStore(rootReducer, initialState);
+  const createStoreWithMiddleware = applyMiddleware(...middleWares)(
+    createStore
+  );
+
+  return createStoreWithMiddleware(rootReducer, initialState);
 };

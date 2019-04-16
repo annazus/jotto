@@ -3,14 +3,13 @@ import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import { findByTestAttr, storeFactory } from "./utils/utils";
 
-import Input from "./Input";
+import { UnConnectedInput as Input } from "./Input";
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const setup = (initialState = {}) => {
-  const store = storeFactory(initialState);
-  const wrapper = shallow(<Input store={store} />)
-    .dive()
-    .dive();
+  console.log(initialState);
+  //   const store = storeFactory(initialState);
+  const wrapper = shallow(<Input {...initialState} />);
   return wrapper;
 };
 
@@ -20,7 +19,7 @@ describe("render", () => {
     let wrapper;
     beforeEach(() => {
       let initalState = { success: false };
-      wrapper = setup();
+      wrapper = setup(initalState);
     });
     test("renders component without error", () => {
       const component = findByTestAttr(wrapper, "component-input");
@@ -31,14 +30,28 @@ describe("render", () => {
       expect(inputBox.length).toBe(1);
     });
     test("renders submit button", () => {
-      const inputBox = findByTestAttr(wrapper, "input-box");
-      expect(inputBox.length).toBe(1);
+      const submitButton = findByTestAttr(wrapper, "submit-button");
+      expect(submitButton.length).toBe(1);
     });
   });
   describe("word has  been guessed", () => {
-    test("renders component without error", () => {});
+    let wrapper;
+    beforeEach(() => {
+      wrapper = setup({ success: true });
+    });
+    test("renders component without error", () => {
+      const component = findByTestAttr(wrapper, "component-input");
+      expect(component.length).toBe(1);
+    });
 
-    test("does not render input box", () => {});
+    test("renders input box without error", () => {
+      const inputBox = findByTestAttr(wrapper, "input-box");
+      expect(inputBox.length).toBe(0);
+    });
+    test("renders submit button", () => {
+      const submitButton = findByTestAttr(wrapper, "submit-button");
+      expect(submitButton.length).toBe(0);
+    });
   });
 });
 
