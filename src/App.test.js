@@ -34,12 +34,18 @@ describe("redux props", () => {
     const wrapper = setup({});
     expect(wrapper.instance().props.getSecretWord).toBeInstanceOf(Function);
   });
+
+  test("resetGame is an action creator function on the props", () => {
+    const wrapper = setup({});
+    expect(wrapper.instance().props.resetGame).toBeInstanceOf(Function);
+  });
 });
 describe("test `getSecretWord` runs on App mount", () => {
   const getSecretWordMock = jest.fn();
   const wrapper = shallow(
     <UnConnectedApp
       getSecretWord={getSecretWordMock}
+      resetGame={() => {}}
       success={false}
       guessedWords={[]}
     />

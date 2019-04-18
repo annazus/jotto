@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Congrats from "./Congrats";
+import Input from "./Input";
 import GuessedWords from "./GuessedWords";
+import NewWord from "./NewWord";
 import { connect } from "react-redux";
-import { getSecretWord } from "./actions";
+import { getSecretWord, resetGame } from "./actions";
 import "./App.css";
 export class UnConnectedApp extends Component {
   constructor(props) {
@@ -23,6 +25,12 @@ export class UnConnectedApp extends Component {
       <div className="container">
         <h1>Jotto</h1>
         <Congrats success={this.props.success} />
+        <NewWord
+          success={this.props.success}
+          resetGame={this.props.resetGame}
+        />
+
+        <Input success={this.props.success} />
         <GuessedWords guessedWords={this.props.guessedWords} />
       </div>
     );
@@ -31,7 +39,17 @@ export class UnConnectedApp extends Component {
 const mapStateToProps = ({ guessedWords, success }) => {
   return { guessedWords, success };
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    resetGame: () => {
+      dispatch(resetGame());
+    },
+    getSecretWord: () => {
+      dispatch(getSecretWord());
+    }
+  };
+};
 export default connect(
   mapStateToProps,
-  { getSecretWord }
+  mapDispatchToProps
 )(UnConnectedApp);

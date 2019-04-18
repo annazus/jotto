@@ -36,6 +36,11 @@ describe("if there are no words guessed", () => {
     const instructions = findByTestAttr(wrapper, "guess-instructions");
     expect(instructions.text().length).not.toBe(0);
   });
+
+  test("test does not display total guesses ", () => {
+    const totalGuesses = findByTestAttr(wrapper, "total-guesses");
+    expect(totalGuesses.length).toBe(0);
+  });
 });
 
 describe("if there are words guessed", () => {
@@ -61,16 +66,14 @@ describe("if there are words guessed", () => {
     const guessedWordNodes = findByTestAttr(wrapper, "guessed-word");
     expect(guessedWordNodes.length).toBe(guessedWords.length);
   });
+
+  test("testdisplays guess # with each guess word row", () => {
+    const guessNumberNodes = findByTestAttr(wrapper, "guessed-word-number");
+    expect(guessNumberNodes.length).toBe(guessedWords.length);
+  });
+
+  test("test displays total guesses ", () => {
+    const totalGuesses = findByTestAttr(wrapper, "total-guesses");
+    expect(totalGuesses.text()).toContain(guessedWords.length);
+  });
 });
-
-// test("renders without error", () => {
-//   const wrapper = setup({ guessedWords: [{ word: "fighter", match: 3 }] });
-//   const listElement = findByTestAttr(wrapper, "component-guessed-words-list");
-//   expect(listElement.length).toBe(1);
-// });
-
-// test("renders without error given an empty list", () => {});
-
-// test("renders all provided guessed words", () => {});
-
-// test("does not throw warning with expected props", () => {});

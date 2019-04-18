@@ -14,7 +14,6 @@ const setup = (initialState = {}) => {
 
 const setupConnectedComponent = (initialState = {}) => {
   const store = storeFactory(initialState);
-  console.log("setupConnectedComponent");
 
   const wrapper = shallow(<ConnectedInput store={store} />)
     .dive()

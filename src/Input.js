@@ -4,7 +4,6 @@ import { guessWord } from "./actions";
 export class UnConnectedInput extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     this.state = {};
 
     this.inputBox = React.createRef();
@@ -13,7 +12,6 @@ export class UnConnectedInput extends Component {
   onChange = e => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
-    this.props.guessWord(e.target.name);
   };
 
   submitWord = e => {
@@ -25,7 +23,7 @@ export class UnConnectedInput extends Component {
   };
   render() {
     const contents = this.props.success ? (
-      { undefined }
+      ""
     ) : (
       <form className="form-inline">
         <input

@@ -10,3 +10,9 @@ test("returns state of true when action of type CORRECT_ACTION", () => {
   });
   expect(newState).toBe(true);
 });
+test("returns state of false when action of type RESET_GAME", () => {
+  const newState = successReducer(undefined, {
+    type: actionTypes.RESET_GAME
+  });
+  expect(newState).toBe(false);
+});
