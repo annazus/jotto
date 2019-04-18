@@ -7,6 +7,8 @@ export const actionTypes = {
   RESET_GAME: "RESET_GAME"
 };
 
+export const WORDNIK_API =
+  "https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=5&api_key=";
 export function correctGuess() {
   return { type: actionTypes.CORRECT_GUESS };
 }
@@ -28,11 +30,13 @@ export const guessWord = guessedWord => {
 };
 
 const getSecretWordDispatch = dispatch => {
-  return axios.get("http://localhost:3030").then(response => {
+  const key = process.env.REACT_APP_WORDNIK_API_KEY;
+  const wordnikURL = WORDNIK_API + key;
+  return axios.get(wordnikURL).then(response => {
     //get secret word
     dispatch({
       type: actionTypes.SET_SECRET_WORD,
-      payload: response.data
+      payload: response.data.word
     });
   });
 };

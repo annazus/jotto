@@ -1,7 +1,6 @@
 import moxios from "moxios";
 import { storeFactory } from "../utils/utils";
-import { getSecretWord, resetGame } from "./";
-
+import { getSecretWord, resetGame, WORDNIK_API } from "./";
 describe("getSecretWord action creator", () => {
   beforeEach(() => {
     moxios.install();
@@ -20,7 +19,7 @@ describe("getSecretWord action creator", () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: secretWord
+        response: { word: secretWord }
       });
     });
 
@@ -38,7 +37,7 @@ describe("getSecretWord action creator", () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: secretWord
+        response: { word: secretWord }
       });
     });
 
@@ -63,13 +62,12 @@ describe("getSecretWord action creator", () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: secretWord
+        response: { word: secretWord }
       });
     });
 
     return store.dispatch(resetGame()).then(() => {
       const newState = store.getState();
-      console.log(newState);
       expect(newState.success).toBe(false);
     });
   });
@@ -89,7 +87,7 @@ describe("getSecretWord action creator", () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: secretWord
+        response: { word: secretWord }
       });
     });
 
