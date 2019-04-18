@@ -3,13 +3,22 @@ import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import { findByTestAttr, storeFactory } from "./utils/utils";
 
-import { UnConnectedInput as Input } from "./Input";
+import ConnectedInput, { UnConnectedInput } from "./Input";
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const setup = (initialState = {}) => {
-  console.log(initialState);
-  //   const store = storeFactory(initialState);
-  const wrapper = shallow(<Input {...initialState} />);
+  const store = storeFactory(initialState);
+  const wrapper = shallow(<ConnectedInput store={store} />);
+  return wrapper;
+};
+
+const setupConnectedComponent = (initialState = {}) => {
+  const store = storeFactory(initialState);
+  console.log("setupConnectedComponent");
+
+  const wrapper = shallow(<ConnectedInput store={store} />)
+    .dive()
+    .dive();
   return wrapper;
 };
 
@@ -19,7 +28,7 @@ describe("render", () => {
     let wrapper;
     beforeEach(() => {
       let initalState = { success: false };
-      wrapper = setup(initalState);
+      wrapper = setupConnectedComponent(initalState);
     });
     test("renders component without error", () => {
       const component = findByTestAttr(wrapper, "component-input");
@@ -37,7 +46,7 @@ describe("render", () => {
   describe("word has  been guessed", () => {
     let wrapper;
     beforeEach(() => {
-      wrapper = setup({ success: true });
+      wrapper = setupConnectedComponent({ success: true });
     });
     test("renders component without error", () => {
       const component = findByTestAttr(wrapper, "component-input");
@@ -55,4 +64,45 @@ describe("render", () => {
   });
 });
 
-describe("update state", () => {});
+describe("redux props", () => {
+  test("has success piece of state as props", () => {
+    const success = true;
+    const wrapper = setupConnectedComponent({
+      success
+    });
+    const successProps = wrapper.instance().props.success;
+    expect(successProps).toBe(success);
+  });
+  test("check guess word action creator is a function prop", () => {
+    const wrapper = setupConnectedComponent();
+    const guessWordProps = wrapper.instance().props.guessWord;
+
+    expect(guessWordProps).toBeInstanceOf(Function);
+  });
+});
+describe("`guessWord` action creator", () => {
+  let guessWordMock;
+  let wrapper;
+  const guessedWord = "armed";
+  beforeEach(() => {
+    guessWordMock = jest.fn();
+    wrapper = shallow(<UnConnectedInput guessWord={guessWordMock} />);
+
+    wrapper.instance().inputBox.current = { value: guessedWord };
+    const submit = findByTestAttr(wrapper, "submit-button");
+    submit.simulate("click", { preventDefault() {} });
+  });
+
+  test("`guessWord` was called once", () => {
+    const guessWordCallCount = guessWordMock.mock.calls.length;
+    expect(guessWordCallCount).toBe(1);
+  });
+
+  test("`guessWord` was called with input value as argument", () => {
+    const guessedWordArg = guessWordMock.mock.calls[0][0];
+    expect(guessedWordArg).toBe(guessedWord);
+  });
+  test("input box clears on submit", () => {
+    expect(wrapper.instance().inputBox.current.value).toBe("");
+  });
+});

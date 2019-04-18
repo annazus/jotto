@@ -26,6 +26,5 @@ export const storeFactory = initialState => {
   const createStoreWithMiddleware = applyMiddleware(...middleWares)(
     createStore
   );
-
   return createStoreWithMiddleware(rootReducer, initialState);
 };
