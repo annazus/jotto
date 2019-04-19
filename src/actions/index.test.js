@@ -1,6 +1,13 @@
 import moxios from "moxios";
 import { storeFactory } from "../utils/utils";
-import { getSecretWord, resetGame, giveUp, WORDNIK_API } from "./";
+import {
+  getSecretWord,
+  resetGame,
+  giveUp,
+  WORDNIK_API,
+  showSecretWordInput,
+  setUserSecretWord
+} from "./";
 describe("getSecretWord action creator", () => {
   beforeEach(() => {
     moxios.install();
@@ -160,3 +167,22 @@ describe("test giveup", () => {
     expect(newState.giveup).toBe(true);
   });
 });
+
+describe("test showSecretWordInput ", () => {
+  test("test showSecretWordInput", () => {
+    const store = storeFactory({});
+    store.dispatch(showSecretWordInput());
+    const newState = store.getState();
+    expect(newState.showSecretWordInput).toBe(true);
+  });
+
+  test("test setUserSecretWord", () => {
+    const store = storeFactory({});
+    const secretWord = "drain";
+    store.dispatch(setUserSecretWord(secretWord));
+    const newState = store.getState();
+    expect(newState.secretWord).toBe(secretWord);
+  });
+});
+
+test("test user entered secret word", () => {});

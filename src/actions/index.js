@@ -5,7 +5,8 @@ export const actionTypes = {
   GUESS_WORD: "GUESS_WORD",
   SET_SECRET_WORD: "SET_SECRET_WORD",
   RESET_GAME: "RESET_GAME",
-  GIVEUP_GAME: "GIVEUP_GAME"
+  GIVEUP_GAME: "GIVEUP_GAME",
+  SHOW_SECRET_WORD_INPUT: "SHOW_SECRET_WORD_INPUT"
 };
 
 export const WORDNIK_API =
@@ -61,6 +62,23 @@ export const giveUp = () => {
   return dispatch => {
     dispatch({
       type: actionTypes.GIVEUP_GAME
+    });
+  };
+};
+
+export const showSecretWordInput = () => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.SHOW_SECRET_WORD_INPUT
+    });
+  };
+};
+
+export const setUserSecretWord = secretWord => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.SET_SECRET_WORD,
+      payload: secretWord
     });
   };
 };

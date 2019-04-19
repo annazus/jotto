@@ -1,60 +1,22 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
-import App, { UnConnectedApp } from "./App";
-import { storeFactory } from "./utils/utils";
+import { storeFactory, findByTestAttr } from "./utils/utils";
+import App from "./App";
+import EnterSecretWordButton from "./EnterSecretWordButton";
+
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-test("renders without crashing", () => {
-  const store = storeFactory({ success: false, secretWord: "drain" });
-  const wrapper = shallow(<App store={store} />);
+test("App has a default prop called showSecretWordInput", () => {
+  const wrapper = shallow(<App />);
+
+  expect(wrapper.props.showSecretWordInput).toBe(false);
 });
 
-const setup = (state = {}) => {
-  let store = storeFactory(state);
-  let wrapper = shallow(<App store={store} />)
-    .dive()
-    .dive();
-  return wrapper;
-};
-describe("redux props", () => {
-  test("has access to success state", () => {
-    const success = true;
-    const wrapper = setup({ success });
-    expect(wrapper.instance().props.success).toBe(success);
-  });
+// test("App shows Game component when showSecretWordInput is false", () => {
+//   const wrapper = shallow(<App showSecretWordInput={false} />);
 
-  test("has access to guessWords state", () => {
-    const guessedWords = [{ guessedWord: "train", letterMatchCount: 3 }];
-    const wrapper = setup({ guessedWords });
-    expect(wrapper.instance().props.guessedWords).toEqual(guessedWords);
-  });
+//   expect(wrapper.props.showSecretWordInput).toBe(false);
+// });
 
-  test("getSecretWord is an action creator function on the props", () => {
-    const wrapper = setup({});
-    expect(wrapper.instance().props.getSecretWord).toBeInstanceOf(Function);
-  });
-
-  test("resetGame is an action creator function on the props", () => {
-    const wrapper = setup({});
-    expect(wrapper.instance().props.resetGame).toBeInstanceOf(Function);
-  });
-});
-describe("test `getSecretWord` runs on App mount", () => {
-  const getSecretWordMock = jest.fn();
-  const wrapper = shallow(
-    <UnConnectedApp
-      getSecretWord={getSecretWordMock}
-      resetGame={() => {}}
-      success={false}
-      guessedWords={[]}
-      giveup={false}
-      secretWord="drain"
-    />
-  );
-
-  test("test if getSecretWord is called on mount", () => {
-    const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
-    expect(getSecretWordCallCount).toBe(1);
-  });
-});
+// test("App shows EnterSecretWordButton component when showSecretWordInput is true", () => {});
