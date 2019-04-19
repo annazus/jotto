@@ -14,15 +14,15 @@ const setup = props => {
 
 test("renders without error", () => {
   let resetGameMock = jest.fn();
-  const props = { success: false, resetGame: resetGameMock };
+  const props = { display: false, resetGame: resetGameMock };
   const wrapper = setup(props);
   const newWordComponent = findByTestAttr(wrapper, "component-new-word");
   expect(newWordComponent.length).toBe(1);
 });
 
-test("renders button on success ", () => {
+test("renders button on display true ", () => {
   let resetGameMock = jest.fn();
-  const props = { success: true, resetGame: resetGameMock };
+  const props = { display: true, resetGame: resetGameMock };
   const wrapper = setup(props);
   const newWordComponent = findByTestAttr(wrapper, "new-word-button");
   expect(newWordComponent.length).toBe(1);
@@ -30,7 +30,7 @@ test("renders button on success ", () => {
 
 test("test does not render button on fail ", () => {
   let resetGameMock = jest.fn();
-  const props = { success: false, resetGame: resetGameMock };
+  const props = { display: false, resetGame: resetGameMock };
   const wrapper = setup(props);
   const newWordComponent = findByTestAttr(wrapper, "new-word-button");
   expect(newWordComponent.length).toBe(0);
@@ -38,7 +38,7 @@ test("test does not render button on fail ", () => {
 
 test("test does not render button on fail ", () => {
   let resetGameMock = jest.fn();
-  const props = { success: false, resetGame: resetGameMock };
+  const props = { display: false, resetGame: resetGameMock };
   const wrapper = setup(props);
   const newWordComponent = findByTestAttr(wrapper, "new-word-button");
   expect(newWordComponent.length).toBe(0);
@@ -46,7 +46,7 @@ test("test does not render button on fail ", () => {
 
 test("on button click calls resetWord prop function ", () => {
   let resetGameMock = jest.fn();
-  const props = { success: true, resetGame: resetGameMock };
+  const props = { display: true, resetGame: resetGameMock };
   const wrapper = setup(props);
   const newWordButton = findByTestAttr(wrapper, "new-word-button");
   newWordButton.simulate("click", { preventDefault() {} });

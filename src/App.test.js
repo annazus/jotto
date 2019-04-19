@@ -6,7 +6,7 @@ import { storeFactory } from "./utils/utils";
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 test("renders without crashing", () => {
-  const store = storeFactory({ success: false });
+  const store = storeFactory({ success: false, secretWord: "drain" });
   const wrapper = shallow(<App store={store} />);
 });
 
@@ -48,6 +48,8 @@ describe("test `getSecretWord` runs on App mount", () => {
       resetGame={() => {}}
       success={false}
       guessedWords={[]}
+      giveup={false}
+      secretWord="drain"
     />
   );
 

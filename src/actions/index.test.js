@@ -1,6 +1,6 @@
 import moxios from "moxios";
 import { storeFactory } from "../utils/utils";
-import { getSecretWord, resetGame, WORDNIK_API } from "./";
+import { getSecretWord, resetGame, giveUp, WORDNIK_API } from "./";
 describe("getSecretWord action creator", () => {
   beforeEach(() => {
     moxios.install();
@@ -148,3 +148,15 @@ describe("getSecretWord action creator", () => {
 //     });
 //   });
 // });
+
+describe("test giveup", () => {
+  test("", () => {
+    const success = false;
+    const giveup = false;
+    const guessedWords = [];
+    const store = storeFactory({ success, guessedWords, giveup });
+    store.dispatch(giveUp());
+    const newState = store.getState();
+    expect(newState.giveup).toBe(true);
+  });
+});

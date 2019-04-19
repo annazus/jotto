@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const NewWord = ({ success, resetGame }) => {
+const NewWord = ({ display, resetGame }) => {
   return (
     <div data-test="component-new-word">
-      {success ? (
-        <button data-test="new-word-button" onClick={resetGame}>
+      {display ? (
+        <button
+          data-test="new-word-button"
+          onClick={resetGame}
+          className="btb btn-secondary mb-2"
+        >
           New Word
         </button>
       ) : (
@@ -16,7 +20,7 @@ const NewWord = ({ success, resetGame }) => {
 };
 
 NewWord.propTypes = {
-  success: PropTypes.bool.isRequired,
+  display: PropTypes.bool.isRequired,
   resetGame: PropTypes.func.isRequired
 };
 export default NewWord;

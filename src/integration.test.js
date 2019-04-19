@@ -20,6 +20,7 @@ describe("guess word action creation", () => {
 
       const expectedState = {
         ...initialState,
+        giveup: false,
         success: false,
         guessedWords: [{ guessedWord: unsuccessfulGuess, letterMatchCount: 3 }]
       };
@@ -32,6 +33,8 @@ describe("guess word action creation", () => {
 
       const expectedState = {
         ...initialState,
+        giveup: false,
+
         success: true,
         guessedWords: [{ guessedWord: secretWord, letterMatchCount: 5 }]
       };
@@ -58,6 +61,8 @@ describe("guess word action creation", () => {
       const expectedState = {
         ...initialState,
         success: false,
+        giveup: false,
+
         guessedWords: [
           ...initialState.guessedWords,
           { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
@@ -73,6 +78,8 @@ describe("guess word action creation", () => {
       const expectedState = {
         ...initialState,
         success: true,
+        giveup: false,
+
         guessedWords: [
           ...initialState.guessedWords,
           { guessedWord: secretWord, letterMatchCount: 5 }
