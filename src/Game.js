@@ -7,7 +7,6 @@ import NewWord from "./NewWord";
 import { connect } from "react-redux";
 import { getSecretWord, resetGame, showSecretWordInput } from "./actions";
 import EnterSecretWordButton from "./EnterSecretWordButton";
-import "./App.css";
 export class UnConnectedGame extends Component {
   constructor(props) {
     super(props);

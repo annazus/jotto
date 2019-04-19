@@ -43,7 +43,7 @@ export class UnConnectedInput extends Component {
         />
         <button
           type="submit"
-          className="btb btn-primary mb-2"
+          className="btn  btn-primary mb-2 mr-2"
           data-test="submit-button"
           onClick={this.submitWord}
         >
@@ -51,7 +51,7 @@ export class UnConnectedInput extends Component {
         </button>
         <button
           type="button"
-          className="btn btn-danger mb-2"
+          className="btn btn-danger  mb-2 mr-2"
           data-test="giveup-button"
           onClick={this.giveupGame}
         >

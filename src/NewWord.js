@@ -8,7 +8,7 @@ const NewWord = ({ display, resetGame }) => {
         <button
           data-test="new-word-button"
           onClick={resetGame}
-          className="btb btn-secondary mb-2"
+          className="btn btn-primary spacer-bottom"
         >
           New Word
         </button>

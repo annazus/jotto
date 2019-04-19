@@ -9,7 +9,7 @@ const EnterSecretWordButton = ({ display, showSecretWordInput }) => {
       <button
         data-test="show-secret-word-input-button"
         onClick={onClickButton}
-        className="btb btn-primary spacer-bottom"
+        className="btn btn-primary mt-3 spacer-bottom"
       >
         Enter your own secret word
       </button>
