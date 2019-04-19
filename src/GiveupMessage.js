@@ -16,7 +16,7 @@ export default GiveupMessage;
 
 GiveupMessage.propTypes = {
   giveup: PropTypes.bool.isRequired,
-  secretWord: PropTypes.string.isRequired
+  secretWord: PropTypes.string
 };
 
 GiveupMessage.defaultProps = {

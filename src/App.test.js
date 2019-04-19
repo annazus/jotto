@@ -3,14 +3,15 @@ import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import { storeFactory, findByTestAttr } from "./utils/utils";
 import App from "./App";
-import EnterSecretWordButton from "./EnterSecretWordButton";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-test("App has a default prop called showSecretWordInput", () => {
-  const wrapper = shallow(<App />);
+test("test app renders without error", () => {
+  const store = storeFactory({});
+  const wrapper = shallow(<App store={store} />).dive();
 
-  expect(wrapper.props.showSecretWordInput).toBe(false);
+  console.log(wrapper.props());
+  expect(wrapper.props().showSecretWordInput).toBe(false);
 });
 
 // test("App shows Game component when showSecretWordInput is false", () => {
